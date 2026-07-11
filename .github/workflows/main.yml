@@ -24,16 +24,34 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    # Grant execute permission for gradlew
+    - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+    
+    - name: Set safe directory
+      run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+    
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Compile and run tests on robot code
       run: ./gradlew build
-      
-    - name: Release
-      uses: softprops/action-gh-release@v2
+
+    - uses: actions/setup-dotnet@v5
       with:
-        tag_name: 2026.0.${{ github.run_id }}
+        dotnet-version: '8.0.x'
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v4.7.0
+      with:
+        versionSpec: 6.8.x
+    
+    - name: Determine Version
+      id: version_step
+      uses: gittools/actions/gitversion/execute@v4.7.0
+
+    - name: Release
+      uses: softprops/action-gh-release@v3
+      with:
+        tag_name: ${{ env.fullSemVer }}
+        prerelease: false

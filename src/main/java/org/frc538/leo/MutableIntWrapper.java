@@ -2,25 +2,25 @@ package org.frc538.leo;
 
 import com.revrobotics.MutableInt;
 
-/**
- * Test for loading REVLib
- */
+/** Test for loading REVLib */
 public class MutableIntWrapper {
-    private MutableInt _value;
+  private MutableInt _value;
 
-    /**
-     * Create a MutableInt
-     * @param value initial value
-     */
-    public MutableIntWrapper(int value) {
-        _value = new MutableInt(value);
-    }
+  /**
+   * Create a MutableInt
+   *
+   * @param value initial value
+   */
+  public MutableIntWrapper(int value) {
+    _value = new MutableInt(value);
+  }
 
-    /**
-     * Get the current value
-     * @return the current value
-     */
-    public int get() {
-        return _value.value;
-    }
+  /**
+   * Get the current value
+   *
+   * @return the current value
+   */
+  public int get() {
+    return _value.value;
+  }
 }

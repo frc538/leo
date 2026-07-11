@@ -35,7 +35,7 @@ jobs:
 
     - name: Tag the repo
       id: gitversion
-      uses: michielvha.gitversion-tag-action@v6
+      uses: michielvha/gitversion-tag-action@v6
       with:
         configFilePath: gitversion.yml
       

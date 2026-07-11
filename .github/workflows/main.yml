@@ -32,8 +32,14 @@ jobs:
 
     - name: Compile and run tests on robot code
       run: ./gradlew build
+
+    - name: Tag the repo
+      id: gitversion
+      uses: michielvha.gitversion-tag-action@v6
+      with:
+        configFilePath: gitversion.yml
       
     - name: Release
       uses: softprops/action-gh-release@v3
       with:
-        tag_name: 2026.0.${{ github.run_id }}
+        tag_name: ${{ steps.gitversion.outputs.semver }}

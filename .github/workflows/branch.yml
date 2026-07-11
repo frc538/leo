@@ -24,7 +24,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
 
     # Grant execute permission for gradlew
     - name: Grant execute permission for gradlew
@@ -34,6 +34,6 @@ jobs:
       run: ./gradlew build
       
     - name: Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         tag_name: 2026.0.${{ github.run_id }}-${GITHUB_REF#refs/heads/}

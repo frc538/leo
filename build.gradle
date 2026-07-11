@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id "java"
     id "edu.wpi.first.GradleRIO" version "2026.2.1"
+    id 'com.diffplug.spotless' version '6.20.0'
 }
 
 java {
@@ -11,9 +12,9 @@ java {
 }
 
 if (project.hasProperty('projVersion')) {
-  project.version = project.projVersion
+    project.version = project.projVersion
 } else {
-  project.version = '0.0.0'
+    project.version = '0.0.0'
 }
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
@@ -88,28 +89,78 @@ tasks.withType(JavaCompile) {
 }
 
 java {
-	  withJavadocJar()
+    withJavadocJar()
 }
 
 publishing {
-  publications {
-    mavenJava(MavenPublication) {
-      groupId = 'org.frc538.leo'
-      artifactId = 'leo'
-      version = project.version
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'org.frc538.leo'
+            artifactId = 'leo'
+            version = project.version
 
-      from components.java
-   }
-  }
-
-  repositories {
-    maven {
-      name = "GitHubPackages"
-      url = "https://maven.pkg.github.com/frc538/leo"
-      credentials {
-        username = System.getenv("GITHUB_ACTOR")
-        password = System.getenv("GITHUB_TOKEN")
-      }
+            from components.java
+        }
     }
-  }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/frc538/leo"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
+project.compileJava.dependsOn(spotlessApply)
+
+spotless {
+    java {
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**', '**/bin/**'
+        }
+        toggleOffOn()
+        googleJavaFormat()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    groovyGradle {
+        target fileTree('.') {
+            include '**/*.gradle'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        greclipse()
+        indentWithSpaces(4)
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+    format 'xml', {
+        target fileTree('.') {
+            include '**/*.xml'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        eclipseWtp('xml')
+        trimTrailingWhitespace()
+        indentWithSpaces(2)
+        endWithNewline()
+    }
+    format 'misc', {
+        target fileTree('.') {
+            include '**/*.md', '**/.gitignore'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        trimTrailingWhitespace()
+        indentWithSpaces(2)
+        endWithNewline()
+    }
+}
+
+tasks.withType(Javadoc) {
+    options.addBooleanOption('Werror', true)
+    options.addStringOption('Xdoclint:missing', '-quiet')
 }

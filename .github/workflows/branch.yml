@@ -31,6 +31,12 @@ jobs:
     - name: Set safe directory
       run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
     
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Compile and run tests on robot code
+      run: ./gradlew build
+
     - uses: actions/setup-dotnet@v5
       with:
         dotnet-version: '8.0.x'
@@ -48,21 +54,7 @@ jobs:
         echo "FullSemVer (env.fullSemVer)            : ${{ env.fullSemVer }}"
       name: Display GitVersion variables (without prefix)
 
-
-    # # Grant execute permission for gradlew
-    # - name: Grant execute permission for gradlew
-    #   run: chmod +x gradlew
-
-    # - name: Compile and run tests on robot code
-    #   run: ./gradlew build
-
-    # - name: Tag the repo
-    #   id: gitversion
-    #   uses: michielvha/gitversion-tag-action@v6
-    #   with:
-    #     configFilePath: gitversion.yml
-      
-    # - name: Release
-    #   uses: softprops/action-gh-release@v3
-    #   with:
-    #     tag_name: ${{ steps.gitversion.outputs.semver }}
+    - name: Release
+      uses: softprops/action-gh-release@v3
+      with:
+        tag_name: ${{ env.fullSemVer }}

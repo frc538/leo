@@ -50,11 +50,8 @@ jobs:
       id: version_step
       uses: gittools/actions/gitversion/execute@v4.7.0
 
-    - run: |
-        echo "FullSemVer (env.fullSemVer)            : ${{ env.fullSemVer }}"
-      name: Display GitVersion variables (without prefix)
-
     - name: Release
       uses: softprops/action-gh-release@v3
       with:
         tag_name: ${{ env.fullSemVer }}
+        prerelease: true

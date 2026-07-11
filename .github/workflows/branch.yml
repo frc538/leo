@@ -44,10 +44,10 @@ jobs:
       id: version_step
       uses: gittools/actions/gitversion/execute@v4.7.0
 
-    - name: Output the FullSemVer variable
-      uses: gittools/actions/gitversion/command@v4.7.0
-      with:
-        arguments: '/showvariable FullSemVer'
+    - run: |
+        echo "FullSemVer (env.fullSemVer)            : ${{ env.fullSemVer }}"
+      name: Display GitVersion variables (without prefix)
+
 
     # # Grant execute permission for gradlew
     # - name: Grant execute permission for gradlew

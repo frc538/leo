@@ -28,26 +28,29 @@ jobs:
       with:
         fetch-depth: 0
 
-    # Install GitVersion
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@4.7.0
       with:
         versionSpec: 5.11.1
+    
+    - name: Determine Version
+      id: version_step
+      uses: gittools/actions/gitversion/execute@4.7.0
 
-    # Grant execute permission for gradlew
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    # # Grant execute permission for gradlew
+    # - name: Grant execute permission for gradlew
+    #   run: chmod +x gradlew
 
-    - name: Compile and run tests on robot code
-      run: ./gradlew build
+    # - name: Compile and run tests on robot code
+    #   run: ./gradlew build
 
-    - name: Tag the repo
-      id: gitversion
-      uses: michielvha/gitversion-tag-action@v6
-      with:
-        configFilePath: gitversion.yml
+    # - name: Tag the repo
+    #   id: gitversion
+    #   uses: michielvha/gitversion-tag-action@v6
+    #   with:
+    #     configFilePath: gitversion.yml
       
-    - name: Release
-      uses: softprops/action-gh-release@v3
-      with:
-        tag_name: ${{ steps.gitversion.outputs.semver }}
+    # - name: Release
+    #   uses: softprops/action-gh-release@v3
+    #   with:
+    #     tag_name: ${{ steps.gitversion.outputs.semver }}

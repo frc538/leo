@@ -29,13 +29,13 @@ jobs:
         fetch-depth: 0
 
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@4.7.0
+      uses: GitTools/actions/gitversion/setup@4.7.0
       with:
         versionSpec: 5.11.1
     
     - name: Determine Version
       id: version_step
-      uses: gittools/actions/gitversion/execute@4.7.0
+      uses: GitTools/actions/gitversion/execute@4.7.0
 
     # # Grant execute permission for gradlew
     # - name: Grant execute permission for gradlew

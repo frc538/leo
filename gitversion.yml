@@ -1,6 +1,0 @@
-mode: Mainline
-tag-prefix: ''
-branches: {}
-ignore:
-  sha: []
-  commits-before: 2026-07-11T12:00:00

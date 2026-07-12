@@ -1,4 +1,4 @@
-package org.frc538.leo;
+package org.frc538.leo.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

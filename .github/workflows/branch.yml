@@ -53,5 +53,6 @@ jobs:
     - name: Release
       uses: softprops/action-gh-release@v3
       with:
+        target_commitish: ${{ github.sha }}
         tag_name: ${{ env.semVer }}
         prerelease: true

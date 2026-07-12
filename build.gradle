@@ -95,7 +95,7 @@ java {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId = 'org.frc538.leo'
+            groupId = 'org.frc538'
             artifactId = 'leo'
             version = project.version
 

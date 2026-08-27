@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 public class SparkMaxWrapperTest {
   @Test
   void create() {
-    new SparkMaxWrapper(1, MotorType.kBrushed);
-    new SparkMaxWrapper(2, MotorType.kBrushless);
+    new SparkMaxWrapper(0, 1, MotorType.kBrushed);
+    new SparkMaxWrapper(0, 2, MotorType.kBrushless);
   }
 
   @Test
@@ -17,7 +17,7 @@ public class SparkMaxWrapperTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          new SparkMaxWrapper(0, MotorType.kBrushed);
+          new SparkMaxWrapper(0, 0, MotorType.kBrushed);
         });
   }
 
@@ -26,7 +26,7 @@ public class SparkMaxWrapperTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          new SparkMaxWrapper(1, null);
+          new SparkMaxWrapper(0, 1, null);
         });
   }
 }

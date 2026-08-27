@@ -10,13 +10,14 @@ public class SparkMaxWrapper {
   /**
    * Creates a REV SPARK Max.
    *
+   * @param busId the ID of the Systemcore Bus
    * @param canId the CAN ID of the SPARK Max
    * @param motorType the type of motor to control (brushed or brushless)
    */
-  public SparkMaxWrapper(int canId, MotorType motorType) {
+  public SparkMaxWrapper(int busId, int canId, MotorType motorType) {
     if (canId < 1) throw new IllegalArgumentException("CAN ID must be greater than or equal to 1.");
     if (motorType == null) throw new IllegalArgumentException("Motor Type must be specified.");
-    _sparkMax = new SparkMax(canId, motorType);
+    _sparkMax = new SparkMax(busId, canId, motorType);
   }
 
   /**
@@ -27,7 +28,7 @@ public class SparkMaxWrapper {
   public void setDutyCycle(double dutyCycle) {
     if (dutyCycle < -1) dutyCycle = -1;
     if (dutyCycle > 1) dutyCycle = 1;
-    _sparkMax.set(dutyCycle);
+    _sparkMax.setThrottle(dutyCycle);
   }
 
   /**

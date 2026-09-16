@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import org.junit.jupiter.api.Test;
+import org.wpilib.hardware.bus.CANPort;
 
 public class SparkMaxWrapperTest {
   @Test
   void create() {
-    new SparkMaxWrapper(0, 1, MotorType.kBrushed);
-    new SparkMaxWrapper(0, 2, MotorType.kBrushless);
+    new SparkMaxWrapper(CANPort.CAN_S0, 1, MotorType.kBrushed);
+    new SparkMaxWrapper(CANPort.CAN_S0, 2, MotorType.kBrushless);
   }
 
   @Test
@@ -17,7 +18,7 @@ public class SparkMaxWrapperTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          new SparkMaxWrapper(0, 0, MotorType.kBrushed);
+          new SparkMaxWrapper(CANPort.CAN_S0, 0, MotorType.kBrushed);
         });
   }
 
@@ -26,7 +27,7 @@ public class SparkMaxWrapperTest {
     assertThrows(
         IllegalArgumentException.class,
         () -> {
-          new SparkMaxWrapper(0, 1, null);
+          new SparkMaxWrapper(CANPort.CAN_S0, 1, null);
         });
   }
 }

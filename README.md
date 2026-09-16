@@ -14,4 +14,5 @@ repositories {
 Where `TAG` is the version of the library to include in your project.
 
 Make sure the vendor dependency versions in your project match those in the version you're trying to use. For this version of the library, those are:
-- REVLib 2027.0.0-alpha-6
+- WPILib 2027 alpha 7
+- REVLib 2027.0.0-alpha-7

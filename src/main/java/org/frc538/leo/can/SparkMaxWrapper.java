@@ -2,6 +2,7 @@ package org.frc538.leo.can;
 
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import org.wpilib.hardware.bus.CANPort;
 
 /** A REV SPARK Max */
 public class SparkMaxWrapper {
@@ -10,14 +11,14 @@ public class SparkMaxWrapper {
   /**
    * Creates a REV SPARK Max.
    *
-   * @param busId the ID of the Systemcore Bus
+   * @param bus the Systemcore Bus
    * @param canId the CAN ID of the SPARK Max
    * @param motorType the type of motor to control (brushed or brushless)
    */
-  public SparkMaxWrapper(int busId, int canId, MotorType motorType) {
+  public SparkMaxWrapper(CANPort bus, int canId, MotorType motorType) {
     if (canId < 1) throw new IllegalArgumentException("CAN ID must be greater than or equal to 1.");
     if (motorType == null) throw new IllegalArgumentException("Motor Type must be specified.");
-    _sparkMax = new SparkMax(busId, canId, motorType);
+    _sparkMax = new SparkMax(bus, canId, motorType);
   }
 
   /**
